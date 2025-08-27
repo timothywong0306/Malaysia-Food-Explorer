@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malaysian Street Food Reviews</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="mfelogo.png" alt="logo" class="logo-pic" width="100" height="100">
+      <a>Malaysian Food Explorer</a>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="top10.html">Top 10</a>
+      <a href="recipes.html">Recipes</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="places.html">Recommended Places</a>
+      <a href="spin.html">Spin</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+<div class="login-wrapper">
+  <div class="user-dropdown">
+    <img src="profilepic.png" class="profile-pic" width="40" />
+    <span id="userprofile">Login/Sign Up</span>
+    <div class="dropdown-content" id="dropdownContent">
+      <a href="#" id="userdrop1"></a>
+      <a href="#" id="userdrop2"></a>
+    </div>
+  </div>
+</div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="background">
+      <div class="circle circle1"></div>
+      <div class="circle circle2"></div>
+      <div class="circle circle3"></div>
+    </div>
+
+    <div class="signup-container">
+      <div class="signup-card">
+        <h2>Login Your Account</h2>
+        <p>Are you explore the food today?</p>
+        <form action="recipes.html" method="post" id="loginForm">
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit">Login</button>
+           <p class="login-text"><input type="checkbox" id="rememberMe">Remember me?</p>
+          <p class="login-text">Haven't have an account? <a href="signup.html">Sign Up</a></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Malaysian Food Explorer | Images are for reference only</p>
+    <p>Follow us on social media for more food updates</p>
+    <p>
+      <img src="fb.png" alt="Facebook">
+      <img src="ig.png" alt="Instagram">
+      <img src="yt.png" alt="YouTube">
+      <img src="tw.png" alt="Twitter">
+    </p>
+  </footer>
+
+  <script>
+function setCookie(name, value, days) {
+  const d = new Date();
+  d.setTime(d.getTime() + (days*24*60*60*1000));
+  document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + d.toUTCString() + ";path=/";
+}
+
+function getCookie(name) {
+  const cname = name + "=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i].trim();
+    if (c.indexOf(cname) === 0) return c.substring(cname.length, c.length);
+  }
+  return "";
+}
+
+function deleteCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+window.onload = function() {
+  // Pre-fill login if Remember Me in cookie/localStorage
+  if (getCookie("rememberMe") === "true") {
+    document.getElementById("email").value = getCookie("email");
+    document.getElementById("password").value = getCookie("password");
+    document.getElementById("rememberMe").checked = true;
+  }
+
+   if (sessionStorage.getItem("login") === "true") {
+    const username = sessionStorage.getItem("username");
+    document.getElementById("userprofile").innerHTML = username;
+    document.getElementById("userdrop1").innerHTML = "Profile";
+    document.getElementById("userdrop2").innerHTML = "Sign Out";
+  } else{
+    document.getElementById("userprofile").innerHTML = "Login/Sign Up";
+    document.getElementById("userdrop1").innerHTML = "Login";
+    document.getElementById("userdrop2").innerHTML = "Sign Up";
+  }
+};
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const remember = document.getElementById("rememberMe").checked;
+
+  // Retrieve users from localStorage
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  // Find matching user
+  const validUser = users.find(user => user.email === email && user.password === password);
+
+  if (validUser) {
+    const username = validUser.username;
+sessionStorage.setItem("email", email);
+      sessionStorage.setItem("username", username);
+      sessionStorage.setItem("login","true");
+
+    if (remember) {
+      // Save in localStorage and cookies
+
+      setCookie("email", email, 7);
+      setCookie("password", password, 7);
+      setCookie("username", username, 7);
+      setCookie("rememberMe", "true", 7);
+
+    } else {
+
+      deleteCookie("email");
+  deleteCookie("password");
+  deleteCookie("username");
+  deleteCookie("rememberMe");
+      // Save in sessionStorage only
+      
+      setCookie("rememberMe", "false", 7);
+    }
+
+    alert("Login successful! Welcome " + username);
+
+    window.location.href = "recipes.html";
+
+    // Redirect to welcome page (optional)
+    // window.location.href = "welcome.html";
+
+  } else {
+    alert("Invalid email or password!");
+  }
+});
+
+document.getElementById("userdrop2").addEventListener("click", function(e){
+  if(this.textContent === "Sign Out"){
+    e.preventDefault();
+    // Clear session and local storage
+    sessionStorage.clear();
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    localStorage.removeItem("username");
+    localStorage.setItem("rememberMe", "false");
+
+    // Redirect to login page
+    window.location.href = "login.html";
+  }
+
+  if(this.textContent === "Sign Up"){
+    window.location.href = "signup.html";
+  }
+});
+
+document.getElementById("userdrop1").addEventListener("click", function(e){
+  if(this.textContent === "Login"){
+    window.location.href = "login.html";
+  }
+
+  if(this.textContent === "Profile"){
+    window.location.href = "profile.html";
+  }
+});
+
+</script>
+</body>
+</html>

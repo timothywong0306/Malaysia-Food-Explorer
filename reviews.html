@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malaysian Street Food Reviews</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #222;
+      background-color: #f5f5f5;
+
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      position: fixed;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 20px 30px;
+      border-bottom: 1px solid #e0e0e0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.8em;
+      font-weight: 600;
+      color: #111;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 30px;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 5px 0;
+    }
+
+    .nav-menu a {
+      font-size: 1em;
+      font-weight: 500;
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: #e31837;
+    }
+
+    h2 {
+      color: #111;
+      border-bottom: 2px solid #111;
+      padding-bottom: 5px;
+      margin-top: 40px;
+    }
+
+    .dish-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .dish-card {
+      flex: 1 1 300px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .dish-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .dish-content {
+      padding: 25px;
+    }
+
+    .dish-title {
+      margin: 0;
+      color: #111;
+      font-size: 1.6em;
+    }
+
+    .rating {
+      color: #ffc107;
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #111;
+      color: white;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-menu {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        gap: 10px;
+      }
+
+      .nav-menu a {
+        text-align: left;
+        font-size: 1em;
+      }
+
+      .dish-container {
+        flex-direction: column;
+      }
+
+      .dish-image {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Malaysian Food Explorer</div>
+    <nav class="nav-menu">
+      <a href="index.html">Homepage</a>
+      <a href="top10.html">Top 10</a>
+      <a href="recipes.html">Recipes</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="places.html">Recommended Places</a>
+      <a href="spin.html">Spin</a>
+      <a href="map.html">Map</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Top Street Food Picks</h2>
+    <div class="dish-container">
+      <!-- Nasi Lemak -->
+      <div class="dish-card">
+        <img src="https://source.unsplash.com/random/600x400/?nasi-lemak" alt="Nasi Lemak" class="dish-image">
+        <div class="dish-content">
+          <h3 class="dish-title">Nasi Lemak</h3>
+          <div class="rating">★★★★☆</div>
+          <p>Malaysia’s national dish: fragrant coconut rice served with spicy sambal, fried peanuts, anchovies, cucumber, and egg. A breakfast favorite!</p>
+          <p><strong>Recommended Spot:</strong> Petaling Street, Kuala Lumpur</p>
+          <p><strong>Price:</strong> RM3–8</p>
+          <p><strong>Best Time:</strong> Morning</p>
+        </div>
+      </div>
+
+      <!-- Satay -->
+      <div class="dish-card">
+        <img src="https://source.unsplash.com/random/600x400/?satay" alt="Satay" class="dish-image">
+        <div class="dish-content">
+          <h3 class="dish-title">Satay</h3>
+          <div class="rating">★★★★★</div>
+          <p>Charcoal-grilled meat skewers with peanut sauce. Chicken and beef are most popular. A night market must-try!</p>
+          <p><strong>Recommended Spot:</strong> Gurney Drive, Penang</p>
+          <p><strong>Price:</strong> RM0.8–1.5/stick</p>
+          <p><strong>Best Time:</strong> Evening to late night</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Malaysian Food Explorer | Images are for reference only</p>
+    <p>Follow us on social media for more food updates</p>
+  </footer>
+</body>
+</html>

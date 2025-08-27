@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recommended Street Food Places</title>
+  <link rel="stylesheet" href="basic.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #222;
+      background-color: #fdf6ee;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header styles provided by basic.css */
+
+    h2 {
+      color: #111;
+      border-bottom: 2px solid #111;
+      padding-bottom: 5px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      margin: 30px 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-bar input {
+      flex: 1;
+      min-width: 240px;
+      padding: 12px 16px;
+      font-size: 1em;
+      border: 2px solid #e0e0e0;
+      border-radius: 25px;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar select {
+      min-width: 200px;
+      padding: 12px 16px;
+      font-size: 1em;
+      border: 2px solid #e0e0e0;
+      border-radius: 25px;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+
+    .places-container {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+      margin-bottom: 40px;
+    }
+
+    .place-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e9ecef;
+    }
+
+    .place-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+
+    .place-image {
+      width: 100%;
+      height: 360px;
+      object-fit: contain;
+      background-color: #ffffff;
+    }
+
+    /* All images use contain now (no per-item override needed) */
+
+    .place-content {
+      padding: 28px 28px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .place-title { font-size: 1.6em; margin: 0; color: #111; }
+    .place-meta { color: #444; font-size: 1.05em; }
+    .place-actions { margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .place-actions a { text-decoration: none; color: #e31837; font-weight: 600; }
+
+    .recommended {
+      margin-top: 8px;
+    }
+    .recommended-title {
+      margin-top: 6px;
+      font-weight: 700;
+      color: #111;
+    }
+    .recommended-list {
+      margin: 6px 0 0 18px;
+    }
+    .recommended-list li {
+      margin-bottom: 6px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .social-link {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      align-items: center;
+      justify-content: center;
+    }
+    .social-link svg { width: 24px; height: 24px; display: block; }
+    /* For items without icon (no URL), keep text aligned with icon rows */
+    .recommended-list li.no-icon::before {
+      content: "";
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+    }
+    .icon-fb { color: #1877F2; }
+    .icon-ig { color: #C13584; }
+    .icon-web { color: #111; }
+
+    .panel {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Footer styles provided by basic.css */
+
+    @media (max-width: 900px) {
+      .place-image { height: 260px; }
+      .place-title { font-size: 1.4em; }
+      .place-content { padding: 22px; }
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="mfelogo.png" alt="logo" class="logo-pic" width="100" height="100">
+      <a>Malaysian Food Explorer</a>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="top10.html">Top 10</a>
+      <a href="recipes.html">Recipes</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="recommendedPlaces.html">Recommended Places</a>
+      <a href="spin.html">Spin</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <div class="login-wrapper">
+      <div class="login">
+        <img src="profilepic.png" class="profile-pic" width="40" />
+        <a href="login.html">Login/Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h2>Recommended Street Food Places</h2>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder=" Search places..." />
+      <select id="stateSelect" aria-label="Filter by state">
+        <option value="all">All states</option>
+        <option value="Perlis">Perlis</option>
+        <option value="Kedah">Kedah</option>
+        <option value="Penang">Penang</option>
+        <option value="Kelantan">Kelantan</option>
+        <option value="Terengganu">Terengganu</option>
+        <option value="Pahang">Pahang</option>
+        <option value="Perak">Perak</option>
+        <option value="Selangor">Selangor</option>
+        <option value="Negeri Sembilan">Negeri Sembilan</option>
+        <option value="Melaka">Melaka</option>
+        <option value="Johor">Johor</option>
+        <option value="Sabah">Sabah</option>
+        <option value="Sarawak">Sarawak</option>
+      </select>
+    </div>
+
+    <section class="panel">
+      <h3 style="margin-top:0; color:#e31837">Iconic Street Food by State</h3>
+      <div id="places" class="places-container">
+        <!-- Placeholders: replace with real content later -->
+      </div>
+      <p id="status" style="color:#666; margin-top:10px"></p>
+      <p style="color:#888; font-size:0.95em; margin-top:6px">Reference: Iconic dishes across Malaysian states. Source: <a href="https://www.klook.com/en-MY/blog/iconic-dishes-malaysia/" target="_blank" rel="noopener">Klook – 14 Iconic Dishes (2024)</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Malaysian Food Explorer | Images are for reference only</p>
+    <p>Follow us on social media for more food updates</p>
+    <p>
+      <img src="fb.png" alt="Facebook">
+      <img src="ig.png" alt="Instagram">
+      <img src="yt.png" alt="YouTube">
+      <img src="tw.png" alt="Twitter">
+    </p>
+  </footer>
+
+  <script>
+    const $places = $("#places");
+    const $status = $("#status");
+    const searchInput = document.getElementById("searchInput");
+    const stateSelect = document.getElementById("stateSelect");
+
+    const staticPlaces = [
+      { title: "Perlis – Ikan Bakar", desc: "It should come as no surprise that numerous well-known Thai cuisine are frequently seen in Perlis, the northernmost state in Peninsular Malaysia, given its strong ties to Thailand. Ikan bakar, though, is undoubtedly the most famous dish here. Charcoal-grilled fish and other meals are readily available in restaurants and kiosks, particularly in Kuala Perlis.", img: "ikan_bakar.jpg", links: [
+        { label: "Medan Ikan Bakar (Facebook)", url: "https://www.facebook.com/pages/Medan%20Ikan%20Bakar,%20Jeti%20Kuala%20Perlis/149439581882626/#" },
+        { label: "Api-Api Ikan Bakar (Facebook)", url: "https://www.facebook.com/apiapiikanbakarkualaperlis/?locale=ms_MY" },
+        { label: "Nyiru Klasik Ikan Bakar (Facebook)", url: "https://www.facebook.com/NyiruKlasikanbakar/?locale=ms_MY" }
+      ] },
+      { title: "Kedah – Mee Udang", desc: "Mee udang is the one meal in Kedah that you should not miss if you enjoy seafood. We completely see why the locals love this prawn noodle dish so much; each serving consists of noodles coated in a generous amount of spicy, sweet tomato gravy, and is garnished with a portion of fresh prawns. The mee ketam and mee sotong are more varieties that you should definitely try.", img: "mee-udang.jpg", links: [
+        { label: "Ombak Lara Mee Udang (Facebook)", url: "https://www.facebook.com/p/Mee-Udang-Ombak-Lara-TM-100048134634115/" },
+        { label: "Selera Dataran Tsunami (Facebook)", url: "https://www.facebook.com/SeleraDataranTsunami/" },
+        { label: "Warung Rumpun Mambu (Facebook)", url: "https://www.facebook.com/jaafar7421" }
+      ] },
+      { title: "Penang – Char Kuey Teow", desc: "Penang is known as Malaysia's culinary capital, and it's difficult to choose just one of its specialties.  But we'd personally give the top spot to char kuey teow, a regional delicacy so well-liked that it has inspired numerous imitations outside of Penang and even Malaysia!  Who knew something so basic could taste so good? Stir-fried flat rice noodles with garlic chives, cockles, bean sprouts, prawns, egg, and chilli sauce.", img: "char_kway_teow.jpg", links: [
+        { label: "Siam Road Char Koay Teow (Facebook)", url: "https://www.facebook.com/pages/Siam%20Road%20Char%20Koay%20Teow/176796272339439/#" },
+        { label: "B.M Duck Egg Char Koay Teow (Facebook)", url: "https://www.facebook.com/pages/B.M%20Duck%20Egg%20Fried%20Kueh%20Tiao/483697418415272/" },
+        { label: "Ah Leng Char Koay Teow (Facebook)", url: "https://www.facebook.com/penangahlengcharkaoyteow" }
+      ] },
+      { title: "Kelantan – Nasi Kerabu", desc: "Once a basic meal among East Coast villagers, nasi kerabu is a unique dish from the bright blue of the rice.  Blue rice, raw salad (kerabu), sambal, protein (egg, chicken, beef, or fish), and fish crackers are the main ingredients of nasi kerabu, which is also a favorite among urbanites these days in Kelantan.  Mixing the rice with the salad and sambal is the best way to enjoy the meal, even though it may appear complicated! Blue rice with raw herb salad, sambal, proteins, and crackers.", img: "Nasi-Kerabu-Kelantan-1.jpg", links: [
+        { label: "Lieniey Nasi Kerabu Tumis (Instagram)", url: "https://www.instagram.com/lienieynasikerabutumis/" },
+        { label: "Kak Ma Nasi Kerabu (Instagram)", url: "https://www.instagram.com/normaibrahim64/" },
+        { label: "Nasi Kerabu Panji (Facebook)", url: "https://www.facebook.com/nasikerabupanji" },
+        { label: "Nasi Kerabu Panji (Instagram)", url: "https://www.instagram.com/nasikerabupanji/" }
+      ] },
+      { title: "Terengganu – Satar", desc: "Because of its proximity to the sea, Terengganu offers a wide variety of seafood meals.  Satar is a popular food that is available here.  Fish that has been deboned and mashed is combined with desiccated coconut and a variety of herbs and spices before being wrapped in a banana leaf in the shape of a cone.  After that, each cone is skewered and cooked over charcoal, creating a smoky, spicy, and fragrant fish snack!", img: "satar.jpg", links: [
+        { label: "Warung Aziz Satar (Instagram)", url: "https://www.instagram.com/warung_aziz_satar_kemaman/" },
+        { label: "Pok Nok Satar (Facebook)", url: "https://www.facebook.com/poknorsatar" },
+        { label: "Warung Otak Otak Satar Che Wan (Facebook)", url: "https://www.facebook.com/otakotakchewan" },
+        { label: "Warung Otak Otak Satar Che Wan (Instagram)", url: "https://www.instagram.com/warungotakotakchewan" }
+      ] },
+      { title: "Pahang – Gulai Tempoyak Ikan Patin", desc: "Gulai tempoyak ikan patin, a meal that is synonymous with Pahang, uses two local staples: durian and ikan patin, both of which are abundant in the state.  Tempoyak, a fermented paste made from durian flesh, is then combined with additional spices including ginger, garlic, turmeric, galangal, and ikan patin in a curry meal.  This meal, which is savory, somewhat spicy, and fragrant, goes well with white rice.", img: "Gulai Tempoyak Ikan Patin.jpg", links: [
+        { label: "Kancil Raja Patin (Facebook)", url: "https://www.facebook.com/kancilrajapatin" },
+        { label: "Kancil Raja Patin (Instagram)", url: "https://www.instagram.com/kancilrajapatin/" },
+        { label: "Selera Patin Bangau (Facebook)", url: "https://www.facebook.com/selerapatin.bangautemerloh/" },
+        { label: "Gobang Maju Patin Tempoyak (Instagram)", url: "https://www.instagram.com/gobangmaju" },
+        { label: "Gobang Maju Patin Tempoyak (Facebook)", url: "https://www.facebook.com/profile.php?id=100067529454971&mibextid=LQQJ4d" }
+      ] },
+      { title: "Perak – Ipoh Hor Fun", desc: "With its bewildering variety of local street finds, Ipoh is undoubtedly responsible for introducing Perak to the world of food.  One of their many culinary marvels is the straightforward yet incredibly addictive Ipoh hor fun.  From the carefully simmering broth for hours to the rice noodles cooked with local spring water, every element of the dish is prepared with care.  A bowl of noodles made with the freshest ingredients will make you want to visit Ipoh again.", img: "ipoh_hor_fun.jpg", links: [
+        { label: "Thean Chun Coffee Shop (Facebook)", url: "https://www.facebook.com/pages/Thean%20Chun%20%E5%A4%A9%E6%B4%A5%E8%8C%B6%E5%AE%A4/185205851537341/#" },
+        { label: "Restaurant Moon De Moon (Facebook)", url: "https://www.facebook.com/pages/Restoran-Moon-De-Moon/416521285075841?_rdr" },
+        { label: "Restoran Pulau Sembilan (Facebook)", url: "https://www.facebook.com/pages/Restoran%20Pulau%20Sembilan/314958629414491/#" }
+      ] },
+      { title: "Selangor – Satay Kajang", desc: "Although there are many different types of food in Selangor, the residents are particularly fond of their satay!  Because of its excellent reputation, Kajang's satay is likewise a must-try meal anytime you're in Selangor.  There are a variety of meats to suit your palate and go well with the typical peanut dip, from the standard chicken or beef satay to the more unusual clam or rabbit satay.", img: "satay.jpg", links: [
+        { label: "Willy Satay (Facebook)", url: "https://www.facebook.com/WillySatayOriginalSgRamal" },
+        { label: "Sate Kajang HJ Samuri (Website)", url: "https://satekajang.com.my/" },
+        { label: "Zaini Satay (Website)", url: "https://zsmelawati.easy.co/" },
+        { label: "Satay Hut (Instagram)", url: "https://www.instagram.com/satayhut_official" },
+        { label: "Satay Hut (Facebook)", url: "https://www.facebook.com/Sedappadu" }
+      ] },
+      { title: "Negeri Sembilan – Siew Pao", desc: "Despite its humble appearance, this famous pastry from Seremban, the capital of Negeri Sembilan, is incredibly powerful.  You'll bite into the most flavorful and luscious meat filling with a flaky shell.  Nowadays, you can find various fillings including chicken and mushrooms in addition to the traditional pork, peas, and other ingredients.  You could easily eat a dozen of these siew pao in one sitting because they are flavorful and light.", img: "Negeri Sembilan – Siew Pao.jpg", links: [
+        { label: "Seremban Kee Mei Siew Pow (Facebook)", url: "https://www.facebook.com/keemeisiewpow" },
+        { label: "Siew Pow Master (Facebook)", url: "https://www.facebook.com/pages/Siew%20Pow%20Master,%20Seremban./139337569472540/#" },
+        { label: "Empayar Seremban Siew Pow (Facebook)", url: "https://www.facebook.com/serembansiewpow" },
+        { label: "Empayar Seremban Siew Pow (Instagram)", url: "https://www.instagram.com/serembansiewpow/" }
+      ] },
+      { title: "Melaka – Chicken Rice Balls", desc: "The chicken itself is typically the highlight of chicken rice, but Melaka isn't the same!  The rice balls you get in place of the usual plate of rice are what make this dish so famous in Melaka.  It's not surprising that there are vendors selling these chicken rice balls all over Melaka; they're not only entertaining to eat, but they also taste pretty damn good.", img: "chinese_rice_balls.jpg", links: [
+        { label: "Kedai Kopi Chung Wah" },
+        { label: "Hoe Kee Chicken Rice (Facebook)", url: "https://www.facebook.com/HoeKeeChickenRice/" },
+        { label: "Ee Ji Ban Chicken Rice Balls (Facebook)", url: "https://www.facebook.com/profile.php?id=100039658643499" }
+      ] },
+      { title: "Johor – Otak-Otak", desc: "You must visit Muar if you are ever in Johor because they offer what is possibly the tastiest otak-otak you will ever taste!  You can eat them as snacks or as a side dish for your main course. They are delicious fish and/or other seafood combined with a variety of spices, wrapped in coconut leaves, and cooked over hot coals.", img: "Johor – Otak-Otak.jpg", links: [
+        { label: "Xiao Mei Famous Muar Otak-Otak (Facebook)", url: "https://www.facebook.com/xiaomeiotakmuar" },
+        { label: "Otak-Otak Cheng Boi (Facebook)", url: "https://www.facebook.com/p/%E9%98%BF%E6%A2%85%E9%BA%BB%E5%9D%A1%E4%B9%8C%E8%BE%BE-Otak-Otak-Cheng-Boi-61552468568276/" },
+        { label: "Otak Shiduoli (Facebook)", url: "https://www.facebook.com/profile.php?id=100054473770687&rdid=1apLHQ4PjlAJSztO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1ATfHBRLDi%2F#" }
+      ] },
+      { title: "Sabah – Tuaran Mee", desc: "Tuaran mee is arguably Sabah's most famous noodle dish.  The peculiar yellow egg noodles that are cooked before being covered with the dish's distinctive sauce and ingredients are essential to a delicious bowl of tuaran mee.  Typical toppings include green veggies, egg rolls, and grilled pork.", img: "tuaran mee.jpg", links: [
+        { label: "Tuaran Mee Restoran" },
+        { label: "Restoran Lok Kyun" },
+        { label: "Seng Hing Coffee Shop (Facebook)", url: "https://www.facebook.com/pages/Kedai-Kopi-Seng-Hing/155823381139947" }
+      ] },
+      { title: "Sarawak – Sarawak Laksa", desc: "It's safe to assume that Sarawakians are extremely proud of the state-named laksa dish.  What makes Sarawak laksa so unique is the unique flavor of the curry paste used to prepare it.  After the rice noodles have been soaked in the flavorful broth, omelette strips, chicken, prawns, and fresh veggies are added on top.  Sarawak laksa is so delicious that it was featured on Anthony Bourdain's No Reservations!", img: "sarawak_laksa.jpg", links: [
+        { label: "Choon Hui Cafe (Facebook)", url: "https://www.facebook.com/pages/Choon%20Hui%20Cafe/200693226619277/#" },
+        { label: "Poh Lam Laksa (Facebook)", url: "https://www.facebook.com/p/Chong-Choon-Cafe-%E6%B3%89%E6%98%A5%E8%8C%B6%E5%AE%A4-100063749372195/" },
+        { label: "Mom's Laksa Kopitiam (Instagram)", url: "https://www.instagram.com/momslaksasatok/?hl=en" }
+      ] }
+    ];
+
+    function renderStatic(list){
+      $places.empty();
+      list.forEach(function(p, idx){
+        const card = $(
+          `
+          <div class="place-card">
+            <img class="place-image" alt="Place image">
+            <div class="place-content">
+              <h4 class="place-title"></h4>
+              <div class="place-meta"></div>
+              <div class="recommended"></div>
+              <div class="place-actions"></div>
+            </div>
+          </div>
+          `
+        );
+        card.find(".place-image").attr("src", p.img).attr("alt", p.title);
+        card.find(".place-title").text(p.title);
+        card.find(".place-meta").text(p.desc);
+        const $actions = card.find(".place-actions");
+        const $recommended = card.find(".recommended");
+        if (Array.isArray(p.links)) {
+          // Build "Recommended Places" section with icons
+          const listItems = p.links.map(function(link){
+            if (!link) return '';
+            const isFb = /facebook\.com/i.test(link.url);
+            const isIg = /instagram\.com/i.test(link.url);
+            const icon = isFb
+              ? '<svg class="icon-fb" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07C2 17.1 5.66 21.22 10.44 22v-7.02H7.9v-2.91h2.54V9.84c0-2.51 1.5-3.9 3.8-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.62.77-1.62 1.56v1.87h2.76l-.44 2.91h-2.32V22C18.34 21.22 22 17.1 22 12.07z"/></svg>'
+              : isIg
+                ? '<svg class="icon-ig" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2.2A2.8 2.8 0 1 1 9.2 12 2.81 2.81 0 0 1 12 9.2zM18 6.5a1.1 1.1 0 1 0 1.1 1.1A1.1 1.1 0 0 0 18 6.5z"/></svg>'
+                : '<svg class="icon-web" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm7.93 9h-3.05a15.7 15.7 0 0 0-1.2-5A8.024 8.024 0 0 1 19.93 11ZM12 4a13.7 13.7 0 0 1 1.9 6H10.1A13.7 13.7 0 0 1 12 4ZM8.32 6a15.7 15.7 0 0 0-1.2 5H4.07A8.024 8.024 0 0 1 8.32 6ZM4.07 13h3.05a15.7 15.7 0 0 0 1.2 5A8.024 8.024 0 0 1 4.07 13Zm5.03 0h3.8A13.7 13.7 0 0 1 12 20a13.7 13.7 0 0 1-2.9-7Zm6.58 0h3.05a8.024 8.024 0 0 1-4.25 5 15.7 15.7 0 0 0 1.2-5Z"/></svg>';
+            if (link.url) {
+              return `<li><a class="social-link" href="${link.url}" target="_blank" rel="noopener" aria-label="${link.label}">${icon}</a><span>${link.label}</span></li>`;
+            }
+            return `<li class="no-icon"><span>${link.label}</span></li>`;
+          }).filter(Boolean).join('');
+          if (listItems) {
+            $recommended.html(`<div class="recommended-title">Recommended Places:</div><ul class="recommended-list">${listItems}</ul>`);
+          }
+        } else {
+          if (p.fb && p.fb !== "#") $actions.append(`<a href="${p.fb}" target="_blank" rel="noopener">Facebook</a>`);
+          if (p.ig && p.ig !== "#") $actions.append(`<a href="${p.ig}" target="_blank" rel="noopener">Instagram</a>`);
+        }
+        $places.append(card);
+      });
+      $status.text(list.length + ' places');
+    }
+
+    function applyFilters(){
+      const q = searchInput.value.toLowerCase();
+      const state = stateSelect.value;
+      const filtered = staticPlaces.filter(function(p){
+        const matchesText = p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+        const placeState = p.title.split(" – ")[0];
+        const matchesState = state === "all" ? true : (placeState === state);
+        return matchesText && matchesState;
+      });
+      renderStatic(filtered);
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    stateSelect.addEventListener("change", applyFilters);
+
+    renderStatic(staticPlaces);
+  </script>
+</body>
+</html>
+

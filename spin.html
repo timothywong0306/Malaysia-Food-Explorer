@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malaysian Street Food Reviews</title>
+  <link rel="stylesheet" href="spin.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="mfelogo.png" alt="logo" class="logo-pic" width="100" height="100">
+      <a>Malaysian Food Explorer</a>
+    </div>
+    <nav class="nav-menu">
+      <a href="basic.html">Home</a>
+      <a href="top10.html">Top 10</a>
+      <a href="recipes.html">Recipes</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="places.html">Recommended Places</a>
+      <a href="spin.html">Spin</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <div class="login-wrapper">
+      <div class="login">
+        <img src="profilepic.png" class="profile-pic" width="40" />
+        <a href="login.html">Login/Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+   <div class="container">
+    <h1>🎡 What Should I Eat? 🍽️</h1>
+    <canvas id="wheel" width="500" height="500"></canvas><br>
+    <button id="spinBtn">SPIN</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("wheel");
+    const ctx = canvas.getContext("2d");
+    const spinBtn = document.getElementById("spinBtn");
+    const resultDiv = document.getElementById("result");
+
+    let foods = [];
+    let arc;
+    let startAngle = 0;
+    let spinAngle = 0;
+    let spinTime = 0;
+    let spinTimeTotal = 0;
+
+    // 🎯 Fetch Food Data from API
+    async function fetchFoodData() {
+      try {
+        const res = await fetch("https://wheelofnames.com/api/v1/wheels/180e2f70-dc95-4a12-a88f-419e0f3ec018");
+        const data = await res.json();
+        foods = data.entries.map(e => e.text); // Extract food names
+      } catch {
+        foods = ["Pizza", "Burger", "Sushi", "Noodles", "Fried Rice", "Steak", "Pasta", "Ramen"];
+      }
+      arc = Math.PI * 2 / foods.length;
+      drawWheel();
+    }
+
+    function drawWheel() {
+      const outsideRadius = 230;
+      const textRadius = 190;
+      const insideRadius = 60;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = 2;
+      ctx.font = "18px Arial";
+
+      for (let i = 0; i < foods.length; i++) {
+        const angle = startAngle + i * arc;
+        const gradient = ctx.createRadialGradient(250, 250, 50, 250, 250, 250);
+        gradient.addColorStop(0, i % 2 === 0 ? "#ffcc99" : "#ff9966");
+        gradient.addColorStop(1, i % 2 === 0 ? "#ff9966" : "#ff6633");
+        ctx.fillStyle = gradient;
+
+        ctx.beginPath();
+        ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
+        ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+        ctx.fill();
+        ctx.save();
+
+        ctx.fillStyle = "#222";
+        ctx.translate(
+          250 + Math.cos(angle + arc / 2) * textRadius,
+          250 + Math.sin(angle + arc / 2) * textRadius
+        );
+        ctx.rotate(angle + arc / 2);
+        ctx.fillText(foods[i], -ctx.measureText(foods[i]).width / 2, 0);
+        ctx.restore();
+      }
+
+      // Draw center circle
+      ctx.beginPath();
+      ctx.arc(250, 250, insideRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "#ff4500";
+      ctx.stroke();
+
+      // Draw pointer
+      ctx.fillStyle = "#ff0000";
+      ctx.beginPath();
+      ctx.moveTo(250 - 20, 20);
+      ctx.lineTo(250 + 20, 20);
+      ctx.lineTo(250, 70);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function rotateWheel() {
+      spinAngle *= 0.97; // Gradually slow down
+      if (spinAngle > 0.2) {
+        startAngle += spinAngle * Math.PI / 180;
+        drawWheel();
+        requestAnimationFrame(rotateWheel);
+      } else {
+        stopRotateWheel();
+      }
+    }
+
+    function stopRotateWheel() {
+      const degrees = startAngle * 180 / Math.PI + 90;
+      const arcd = arc * 180 / Math.PI;
+      const index = Math.floor((360 - (degrees % 360)) / arcd) % foods.length;
+      resultDiv.innerText = `You should eat: ${foods[index]}! 😋`;
+    }
+
+    spinBtn.addEventListener("click", () => {
+      spinAngle = Math.random() * 30 + 40; // Strong initial spin
+      rotateWheel();
+    });
+
+    fetchFoodData();
+  </script>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Malaysian Food Explorer | Images are for reference only</p>
+    <p>Follow us on social media for more food updates</p>
+    <p>
+      <img src="fb.png" alt="Facebook">
+      <img src="ig.png" alt="Instagram">
+      <img src="yt.png" alt="YouTube">
+      <img src="tw.png" alt="Twitter">
+    </p>
+  </footer>
+</body>
+</html>

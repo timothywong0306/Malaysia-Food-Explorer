@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ - Malaysian Street Food</title>
+  <link rel="stylesheet" href="basic.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #222;
+      background-color: #fdf6ee;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      color: #111;
+      border-bottom: 2px solid #111;
+      padding-bottom: 5px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+
+    .faq-container {
+      margin: 30px 0 50px 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e9ecef;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border: none;
+      font-size: 1.05em;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question:focus {
+      outline: none;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 22px 18px 22px;
+      color: #444;
+      background: white;
+    }
+
+    .faq-item[aria-expanded="true"] .faq-answer {
+      display: block;
+    }
+
+    .chevron {
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item[aria-expanded="true"] .chevron {
+      transform: rotate(180deg);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-menu {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="mfelogo.png" alt="logo" class="logo-pic" width="100" height="100">
+      <a>Malaysian Food Explorer</a>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="top10.html">Top 10</a>
+      <a href="recipes.html">Recipes</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="recommendedPlaces.html">Recommended Places</a>
+      <a href="spin.html">Spin</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <div class="login-wrapper">
+      <div class="login">
+        <img src="profilepic.png" class="profile-pic" width="40" />
+        <a href="login.html">Login/Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container" id="faqList">
+
+      <!-- About Malaysian Street Food -->
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer1" aria-expanded="false">
+          What makes Malaysian street food unique?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer1" role="region">
+          Malaysian street food is a blend of Malay, Chinese, Indian, and indigenous influences, resulting in diverse
+          flavors and cooking styles. Dishes often use aromatic spices, coconut milk, sambal, and fresh herbs.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer2" aria-expanded="false">
+          Which street foods are considered “must-try” in Malaysia?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer2" role="region">
+          Popular choices include Nasi Lemak, Char Kway Teow, Satay, Roti Canai, Laksa, and Keropok Lekor. Each state
+          also has its own signature dish.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer3" aria-expanded="false">
+          How is street food culture different across states?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer3" role="region">
+          Northern states like Penang are known for Chinese-influenced dishes, the East Coast for rice-based meals with
+          herbs and fermented condiments, and East Malaysia for noodle dishes like Sarawak Laksa and Beaufort Mee.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer4" aria-expanded="false">
+          Why is street food so important to Malaysian culture?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer4" role="region">
+          Street food is an affordable way for people to enjoy traditional dishes daily. It also reflects Malaysia’s
+          multicultural heritage and social lifestyle, as locals often gather at night markets or food courts.
+        </div>
+      </div>
+
+      <!-- Food & Ingredients -->
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer5" aria-expanded="false">
+          Are most street foods halal?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer5" role="region">
+          Many stalls, especially Malay-owned ones, serve halal food. In mixed or Chinese-majority areas, non-halal
+          options may be available, so Muslim visitors should look for halal certification signs.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer6" aria-expanded="false">
+          Are vegetarian or vegan options available?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer6" role="region">
+          Yes, though limited. Indian stalls often serve vegetarian dishes like thosai, idli, or chapati, and some
+          stalls offer vegetable-based noodles or rice dishes.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer7" aria-expanded="false">
+          Is Malaysian street food usually spicy, and can I ask for less spice?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer7" role="region">
+          Many dishes are spicy due to sambal and chilies, but vendors can often adjust spice levels if requested. Not
+          all street foods are spicy—dishes like roti canai or cendol are mild.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer8" aria-expanded="false">
+          Are there allergy-friendly or gluten-free choices?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer8" role="region">
+          Options exist but are not always clearly labeled. Rice-based dishes (e.g., nasi kerabu, nasi lemak) are
+          typically gluten-free, but diners with allergies should ask vendors about ingredients.
+        </div>
+      </div>
+
+      <!-- Practical Eating Tips -->
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer9" aria-expanded="false">
+          What is the typical price range for street food?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer9" role="region">
+          Prices usually range from RM2 to RM10 per dish, depending on location and portion size. Tourist-heavy spots
+          may be slightly higher.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer10" aria-expanded="false">
+          Do vendors accept cashless payment, or should I carry cash?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer10" role="region">
+          Cash is still widely used, especially at smaller stalls. In cities, some vendors accept e-wallets or QR
+          payments.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer11" aria-expanded="false">
+          What are the usual operating hours for food stalls and night markets?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer11" role="region">
+          Many stalls open in the evening until late night. Pasar malam usually start around 6 PM and run until 10–11
+          PM.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer12" aria-expanded="false">
+          Is it safe to eat from roadside stalls? How do I choose a clean vendor?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer12" role="region">
+          Yes, it is generally safe. Choose vendors with a high turnover of customers, clean preparation areas, and
+          freshly cooked food.
+        </div>
+      </div>
+
+      <div class="faq-item" aria-expanded="false">
+        <button class="faq-question" aria-controls="answer13" aria-expanded="false">
+          How do I order if I don’t speak Malay?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-answer" id="answer13" role="region">
+          Many vendors understand basic English, and pointing at displayed dishes also works. Learning simple Malay
+          words like “satu” (one) or “pedas” (spicy) can help.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Malaysian Food Explorer | Images are for reference only</p>
+    <p>Follow us on social media for more food updates</p>
+    <p>
+      <img src="fb.png" alt="Facebook">
+      <img src="ig.png" alt="Instagram">
+      <img src="yt.png" alt="YouTube">
+      <img src="tw.png" alt="Twitter">
+    </p>
+  </footer>
+
+  <script>
+    (function faqAccordion() {
+      const list = document.getElementById('faqList');
+      list.addEventListener('click', function (e) {
+        const btn = e.target.closest('.faq-question');
+        if (!btn) return;
+        const item = btn.parentElement;
+        const expanded = item.getAttribute('aria-expanded') === 'true';
+        list.querySelectorAll('.faq-item').forEach(function (it) {
+          it.setAttribute('aria-expanded', 'false');
+          const b = it.querySelector('.faq-question');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        });
+        item.setAttribute('aria-expanded', String(!expanded));
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+      list.querySelectorAll('.faq-question').forEach(function (q) {
+        q.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            q.click();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+
+</html>
